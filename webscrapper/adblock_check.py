@@ -42,6 +42,7 @@ driver.request_interceptor = block_ads
 # Open a website
 driver.get("http://webdev.cs.vt.edu:8080/SpencerBookstoreReactSession/")
 #driver.get("https://sbomb100.github.io/spencerbone.github.io/")
+#driver.get("https://www.cnn.com/")
 
 # Wait for page to load
 time.sleep(5)
@@ -50,14 +51,14 @@ time.sleep(5)
 try:
     # Identify ad-related elements by class name, id, or other selectors
     ads = driver.find_elements(By.CSS_SELECTOR, "div.ad, div[class*='ad']:not([class*='header'])")
+    print(f"Found {len(ads)} ads.")
     for ad in ads:
-        print(f"Found {len(ads)} ads.")
-        #take the item
+        #take the item 
         try:
             driver.execute_script("arguments[0].style.display = 'none';", ad)
         except Exception as e:
             print(f"Error hiding ad: {e}")
-        print("Blocked an ad element.")
+    print("Blocked all ad elements.")
 except Exception as e:
     print(f"Error removing ad element: {e}")
 
