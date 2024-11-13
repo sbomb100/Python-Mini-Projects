@@ -21,10 +21,9 @@ ad_domains = [
 
 # Set up Chrome options for headless mode
 chrome_options = Options()
-chrome_options.add_argument("--headless")
-chrome_options.add_argument("--disable-gpu")
-chrome_options.add_argument("--no-sandbox")
-
+#chrome_options.add_argument("--headless")
+#chrome_options.add_argument("--disable-gpu")
+#chrome_options.add_argument("--no-sandbox")
 # Initialize the WebDriver
 driver = webdriver.Chrome(options=chrome_options)
 
@@ -42,6 +41,7 @@ driver.request_interceptor = block_ads
 
 # Open a website
 driver.get("http://webdev.cs.vt.edu:8080/SpencerBookstoreReactSession/")
+#driver.get("https://sbomb100.github.io/spencerbone.github.io/")
 
 # Wait for page to load
 time.sleep(5)
@@ -49,13 +49,17 @@ time.sleep(5)
 # Remove known ad elements from the DOM
 try:
     # Identify ad-related elements by class name, id, or other selectors
-    ads = driver.find_elements(By.CSS_SELECTOR, "div.ad, div[class*='ad']")
+    ads = driver.find_elements(By.CSS_SELECTOR, "div.ad, div[class*='ad']:not([class*='header'])")
     for ad in ads:
+        print(f"Found {len(ads)} ads.")
         #take the item
-        driver.execute_script("arguments[0].style.display = 'none';", ad)
+        try:
+            driver.execute_script("arguments[0].style.display = 'none';", ad)
+        except Exception as e:
+            print(f"Error hiding ad: {e}")
         print("Blocked an ad element.")
 except Exception as e:
     print(f"Error removing ad element: {e}")
 
 # Close the driver
-driver.quit()
+#driver.quit()
