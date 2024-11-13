@@ -61,5 +61,6 @@ try:
 except Exception as e:
     print(f"Error removing ad element: {e}")
 
+input("Press Enter to exit and close the browser...")
 # Close the driver
-#driver.quit()
+driver.quit()
