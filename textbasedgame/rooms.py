@@ -19,6 +19,7 @@ class Room:
         self.items = []
         #consider making items a class instead of a string, where usable items can be defined with specific attributes
         self.connections = {}
+        self.locked = False
 
     def __str__(self):
         return f"Room: {self.name} has {self.items}, connected to {self.connections}"
@@ -43,6 +44,14 @@ class Room:
     def remove_item(self, item):
         if (item != None and self.items.count(item) > 0):
             self.items.remove(item)
+
+    def lock_room(self):
+        self.lock_room = True
+    def unlock_room(self):
+        self.lock_room = False
+
+    def is_locked(self):
+        return self.lock_room
 
     def check_room(self):
         print(f"You seem to be standing in some kind of {self.name}\n")
@@ -91,8 +100,10 @@ if (map_id == 1):
     kitchen.connect(bedroom, "west")
     bedroom.connect(kitchen, "east")
 
+    living_room.add_item("key")
+    kitchen.lock_room()
     map = [entrance, living_room, kitchen, bathroom, bedroom]
 
 #make a lost woods map where 2 of the 3 directions lead to the same room!
 
-#TODO: more maps, keys/locked doors, enemies, 
+#TODO: more maps, enemies, talkable npcs

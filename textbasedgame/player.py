@@ -7,12 +7,26 @@ class Player:
     def move(self, direction, rooms):
         next_room = self.current_room.get_connection(direction)
         #make get_room_in_direciton, if no room make it None
-        
-        if next_room:
-            self.current_room = next_room
-            print(f"You move {direction} to the {self.current_room.get_name()}.\n")
+               
+        if next_room: #next room exists
+            if (next_room.is_locked() == True and self.inventory.count("key") == 0):
+                print(f"The door to the {direction} is locked. You need a key\n")
+            elif (next_room.is_locked() == True and self.inventory.count("key") > 0):
+                check = input("This door is locked, care to unlock it?\n")
+                if (check == "yes" or check == "y"):
+                    self.current_room = next_room
+                    next_room.unlock_room()
+                    self.inventory.remove("key")
+                    print(f"You unlcok the door and move {direction} to the {self.current_room.get_name()}.\n")
+                else: 
+                    print(f"You chose to not to unlock the door.\n")
+                
+            else:
+                self.current_room = next_room
+                print(f"You move {direction} to the {self.current_room.get_name()}.\n")
         else:
             print("You can't go that way.")
+
         return self.current_room
         
 
@@ -24,8 +38,13 @@ class Player:
 
     def pick_up_item(self, item, room):
         if (item != None):
-            room.remove_item(item)
             self.inventory.append(item)
+            room.remove_item(item)
+
+    def use_item(self, item, room):
+        if(item == "key"):
+            self.inventory.remove("key")
+
 
     def check_inventory(self):
         if (len(self.inventory) == 0):
