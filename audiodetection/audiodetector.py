@@ -27,6 +27,9 @@ def listen_for_keywords():
                     print("An act of CLOD!")
                     webbrowser.open(CLOD)
                     time.sleep(5)
+                if "sus" in text:
+                    print("SUS!")
+                    time.sleep(5)
 
             except sr.UnknownValueError:
                 print("Could not understand audio")
