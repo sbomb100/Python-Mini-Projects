@@ -68,10 +68,10 @@ def visual():
                 G[src_ip][dst_ip]['weight'] += 1
 
             # Print information about the packet
-            print(f"Packet from {src_ip} to {dst_ip}")
+           # print(f"Packet from {src_ip} to {dst_ip}")
 
     # Start sniffing for packets (limit to 100 packets in this example)
-    scapy.sniff(prn=packet_callback, count=1000, store=0)
+    scapy.sniff(prn=packet_callback, count=10000, store=0)
 
     # Visualize the network graph
     plt.figure(figsize=(10, 8))
