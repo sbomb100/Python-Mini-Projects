@@ -10,6 +10,12 @@ cap = cv2.VideoCapture(0)
 
 def is_flipping_off(hand_landmarks):
     # Get the positions of the fingers
+    #0 is wrist
+    #1-4 is thumb from base to tip
+    #5-8 is index
+    #9-12 is middle
+    #13-16 is ring
+    #17-20 is pinky
     thumb_tip = hand_landmarks.landmark[4]
     index_tip = hand_landmarks.landmark[8]
     middle_tip = hand_landmarks.landmark[12]
@@ -43,6 +49,7 @@ while True:
         for landmarks in results.multi_hand_landmarks:
             # Draw the landmarks on the frame
             mp.solutions.drawing_utils.draw_landmarks(frame, landmarks, mp_hands.HAND_CONNECTIONS)
+
             if is_flipping_off(landmarks):
                 cv2.putText(frame, "Flipping off detected!", (50,50), cv2.FONT_HERSHEY_SIMPLEX, 1, (0,0,225), 2)
 

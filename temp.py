@@ -1,3 +1,4 @@
+#basic notes 
 var = 0
 var1 = 'hello'
 typical_convention = 1

@@ -8,7 +8,7 @@ import time
 def swear_jar():
     money_owed = 0.01
     recognizer = sr.Recognizer()
-    with sr.Microphone(12) as source:
+    with sr.Microphone() as source:
         print("Listening for Profanity!")
 
         while True:

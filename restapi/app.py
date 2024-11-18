@@ -1,4 +1,4 @@
-#CRUD operations (Create, Read, Update, Delete).from flask import Flask, jsonify, request
+#CRUD operations (Create, Read, Update, Delete)
 from flask import Flask, jsonify, request
 
 app = Flask(__name__)
@@ -10,12 +10,21 @@ books = [
     {"id": 3, "title": "To Kill a Mockingbird", "author": "Harper Lee"}
 ]
 
-# Route to get all books
+#@app.route('x', methods=["y"])
+#def do_thing():
+
+#@app.route is for the url where x is the url exension (example.com/x or localhost:3000/x)
+#methods is the http methods to use with data
+# notice since the web part is just an exension of the fake database, all these methods are just
+#to show how we can interact with the database using CURL methods.
+#the actual database management is done in file here.
+
+#jsonify is used to format the database to the given url/extension
+
 @app.route('/books', methods=['GET'])
 def get_books():
     return jsonify(books)
 
-# Route to get a specific book by ID
 @app.route('/books/<int:id>', methods=['GET'])
 def get_book(id):
     book = next((book for book in books if book["id"] == id), None)
@@ -23,18 +32,16 @@ def get_book(id):
         return jsonify({"error": "Book not found"}), 404
     return jsonify(book)
 
-# Route to create a new book
 @app.route('/books', methods=['POST'])
 def create_book():
-    new_book = request.get_json()  # Get the JSON data from the request body
+    new_book = request.get_json()  # get the JSON data from the request body
     if 'title' not in new_book or 'author' not in new_book:
         return jsonify({"error": "Missing title or author"}), 400
 
-    new_book['id'] = books[-1]['id'] + 1 if books else 1  # Assign an ID
+    new_book['id'] = books[-1]['id'] + 1 if books else 1 
     books.append(new_book)
     return jsonify(new_book), 201
 
-# Route to update a book
 @app.route('/books/<int:id>', methods=['PUT'])
 def update_book(id):
     book = next((book for book in books if book["id"] == id), None)
@@ -45,7 +52,6 @@ def update_book(id):
     book.update(updated_data)
     return jsonify(book)
 
-# Route to delete a book
 @app.route('/books/<int:id>', methods=['DELETE'])
 def delete_book(id):
     book = next((book for book in books if book["id"] == id), None)
@@ -55,7 +61,6 @@ def delete_book(id):
     books.remove(book)
     return jsonify({"message": f"{title} deleted"}), 200
 
-# Run the app
 if __name__ == '__main__':
     app.run(debug=True)
 
