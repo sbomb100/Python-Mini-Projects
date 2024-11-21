@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ad Blocker</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        h1 {
+            color: #333;
+        }
+        .blocked-list {
+            background-color: white;
+            border-radius: 5px;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            margin-top: 20px;
+        }
+        .blocked-list ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        .blocked-list li {
+            background-color: #ffdddd;
+            margin-bottom: 10px;
+            padding: 5px;
+            border-radius: 3px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Ad Blocker</h1>
+    <p>This page shows a live list of domains that have been blocked by the ad blocker.</p>
+    <div class="blocked-list">
+        <h2>Blocked Domains</h2>
+        <ul>
+            {% for domain in blocked_domains %}
+                <li>{{ domain }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+</body>
+</html>
